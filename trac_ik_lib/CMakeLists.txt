@@ -32,7 +32,7 @@ add_library(${PROJECT_NAME} SHARED
 # i.e. `std::chrono::{duration, time_point}` can then replace
 # `boost::posix_time::{time_duration, ptime}`
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  CXX_STANDARD 20
+  CXX_STANDARD 17
   CXX_STANDARD_REQUIRED YES
   CXX_EXTENSIONS NO
 )

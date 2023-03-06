@@ -135,7 +135,7 @@ namespace trac_ik_kinematics_plugin
       joint_min_(i) = solver_info_.limits[i].min_position;
       joint_max_(i) = solver_info_.limits[i].max_position;
     }
- 
+
     num_joints_ = kdl_chain_.getNrOfJoints();
 
     RCLCPP_INFO(LOGGER, "number of joints: %i", num_joints_);
@@ -158,9 +158,9 @@ namespace trac_ik_kinematics_plugin
   int TRAC_IKKinematicsPlugin::getKDLSegmentIndex(const std::string &name) const
   {
     int i = 0;
-    while (i < (int)chain.getNrOfSegments())
+    while (i < (int)kdl_chain_.getNrOfSegments())
     {
-      if (chain.getSegment(i).getName() == name)
+      if (kdl_chain_.getSegment(i).getName() == name)
       {
         return i + 1;
       }
@@ -195,12 +195,11 @@ namespace trac_ik_kinematics_plugin
       jnt_pos_in(i) = joint_angles[i];
     }
 
-    KDL::ChainFkSolverPos_recursive fk_solver(chain);
+    KDL::ChainFkSolverPos_recursive fk_solver(kdl_chain_);
 
     bool valid = true;
     for (unsigned int i = 0; i < poses.size(); i++)
     {
-      RCLCPP_DEBUG(LOGGER, "End effector index: %d", getKDLSegmentIndex(link_names[i]));
       if (fk_solver.JntToCart(jnt_pos_in, p_out, getKDLSegmentIndex(link_names[i])) >= 0)
       {
         poseKDLToMsg(p_out, poses[i]);
@@ -384,7 +383,7 @@ namespace trac_ik_kinematics_plugin
         solution[z] = out(z);
 
       // check for collisions if a callback is provided
-      if (!solution_callback.empty())
+      if (solution_callback)
       {
         solution_callback(ik_pose, solution, error_code);
         if (error_code.val == moveit_msgs::msg::MoveItErrorCodes::SUCCESS)
@@ -394,7 +393,7 @@ namespace trac_ik_kinematics_plugin
         }
         else
         {
-          RCLCPP_DEBUG(LOGGER, "Solution has error code %i", error_code);
+          RCLCPP_DEBUG_STREAM(LOGGER, "Solution has error code " << error_code.val);
           return false;
         }
       }

@@ -27,7 +27,7 @@ add_executable(ik_tests src/ik_tests.cpp)
 # i.e. `std::chrono::{duration, time_point}` can then replace
 # `boost::posix_time::{time_duration, ptime}`
 set_target_properties(ik_tests PROPERTIES
-  CXX_STANDARD 20
+  CXX_STANDARD 17
   CXX_STANDARD_REQUIRED YES
   CXX_EXTENSIONS NO
 )

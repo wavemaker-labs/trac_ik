@@ -10,19 +10,22 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
   <build_depend>moveit_common</build_depend>
 
+  <!-- <build_depend>orocos_kdl</build_depend> -->
+  <!-- <build_depend>NLopt</build_depend> -->
+
   <depend>moveit_core</depend>
   <depend>class_loader</depend>
   <depend>pluginlib</depend>
   <depend>eigen</depend>
   <depend>tf2</depend>
   <depend>tf2_kdl</depend>
-  <depend>orocos_kdl</depend>
+  <!-- <depend>orocos_kdl</depend> -->
   <depend>moveit_msgs</depend>
   <depend>trac_ik_lib</depend>
-  <depend>NLopt</depend>
+  <!-- <depend>NLopt</depend> -->
 
   <exec_depend>urdfdom</exec_depend>
-  <exec_depend>python-lxml</exec_depend>
+  <!-- <exec_depend>python-lxml</exec_depend> -->
 
   <export>
     <build_type>ament_cmake</build_type>
